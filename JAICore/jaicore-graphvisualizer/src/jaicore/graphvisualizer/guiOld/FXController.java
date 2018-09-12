@@ -1,4 +1,4 @@
-package jaicore.graphvisualizer.gui;
+package jaicore.graphvisualizer.guiOld;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +19,8 @@ import jaicore.graphvisualizer.events.controlEvents.*;
 import jaicore.graphvisualizer.events.misc.AddSupplierEvent;
 import jaicore.graphvisualizer.events.misc.InfoEvent;
 import jaicore.graphvisualizer.events.misc.RequestSuppliersEvent;
-import jaicore.graphvisualizer.gui.dataSupplier.ISupplier;
-import jaicore.graphvisualizer.gui.dataVisualizer.IVisualizer;
-import jaicore.graphvisualizer.gui.dataVisualizer.NodeExpansionVisualizer;
+import jaicore.graphvisualizer.guiOld.dataSupplier.ISupplier;
+import jaicore.graphvisualizer.guiOld.dataVisualizer.IVisualizer;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -155,9 +154,12 @@ public class FXController implements Initializable, NodeListener {
      */
     @FXML
     public void step(ActionEvent actionEvent) {
-        if(index == maxIndex && ! live)
-            return;
-
+//        if(index == maxIndex && ! live)
+//            return;
+    	if(index == maxIndex) {
+    		this.controlEventBus.post(new AlgorithmEvent(null));
+    		return;
+    	}
 
         this.controlEventBus.post(new StepEvent(true, 1));
 
@@ -406,6 +408,9 @@ public class FXController implements Initializable, NodeListener {
     @Override
     public void buttonPushed(Object node) {
        this.controlEventBus.post(new NodePushed(node));
+       if(index == maxIndex) {
+    	   this.controlEventBus.post(new AlgorithmEvent(node));
+       }
     }
 
 

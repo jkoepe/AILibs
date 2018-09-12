@@ -1,4 +1,4 @@
-package jaicore.graphvisualizer.gui;
+package jaicore.graphvisualizer.guiOld;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,11 +10,12 @@ import javafx.stage.Stage;
  */
 public class GuiApplication extends Application {
     FXGui gui;
-
+    FXCode code;
 
     @Override
     public void start(Stage stage) throws Exception {
         this.gui = new FXGui();
+        this.code = new FXCode();
     }
 
 

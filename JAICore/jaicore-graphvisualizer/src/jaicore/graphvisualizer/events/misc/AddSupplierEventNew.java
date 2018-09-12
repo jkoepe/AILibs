@@ -1,17 +1,17 @@
 package jaicore.graphvisualizer.events.misc;
 
-import jaicore.graphvisualizer.guiOld.dataSupplier.ISupplier;
+import jaicore.graphvisualizer.gui.dataSupplier.ISupplier;
 
 /**
  * An event which is used to inform the receiving object about a new supplier.
  * @author jkoepe
  *
  */
-public class AddSupplierEvent {
+public class AddSupplierEventNew {
 
     ISupplier supplier;
 
-    public AddSupplierEvent(ISupplier supplier){
+    public AddSupplierEventNew(ISupplier supplier){
         this.supplier = supplier;
     }
 

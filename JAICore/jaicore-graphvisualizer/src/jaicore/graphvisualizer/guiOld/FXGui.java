@@ -1,4 +1,4 @@
-package jaicore.graphvisualizer.gui;
+package jaicore.graphvisualizer.guiOld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import jaicore.graph.IObservableGraphAlgorithm;
-import jaicore.graphvisualizer.IGraphDataSupplier;
-import jaicore.graphvisualizer.INodeDataSupplier;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +37,7 @@ public class FXGui{
         open(recorder, "GUI");
     }
     /**
-     * Opens a GUI-Window with a given Recorder as the main supplier
+     * Opens a GUI-VisualizationWindow with a given Recorder as the main supplier
      * @param recorder
      * 		The recorder which contains the recorded events
      * @param title
