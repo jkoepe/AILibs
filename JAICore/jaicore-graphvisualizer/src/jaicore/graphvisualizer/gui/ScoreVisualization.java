@@ -8,9 +8,13 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import org.graphstream.graph.Node;
 import org.graphstream.ui.fx_viewer.FxViewPanel;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +129,31 @@ public class ScoreVisualization<T> extends GraphVisualization<T> {
     protected javafx.scene.Node createColorGradient(){
         Rectangle box = new Rectangle(50,500);
         Stop[] stops = new Stop[]{new Stop(0, Color.BLUE), new Stop(1, Color.RED)};
+        ArrayList<Stop> list = new ArrayList<Stop>();
+
+        try {
+            Files.lines(Paths.get("/home/jkoepe/git/AILibs/JAICore/jaicore-search/conf/heatmap.css")).filter(line->line.contains("fill-color"))
+//            Files.lines(Paths.get("url('conf/heatmap.css')")).filter(line->line.contains("fill-color"))
+                    .filter(line->!line.contains("/*"))
+                    .forEach(line->{
+                        String s = line.replace("fill-color: ","").replace(";","").replace(" ","");
+                        String [] a = s.split(",");
+                        if(a.length > 1) {
+                            double d = 1.0 / (a.length-1);
+                            for(int i = 0; i < a.length; i ++){
+
+                                System.out.println(d*i);
+                                System.out.println(a[i].length());
+
+                                list.add(new Stop(d*i, Color.web(a[i].trim())));
+                            }
+                        }
+
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stops = list.toArray(new Stop[0]);
         LinearGradient lg = new LinearGradient(0,1,0,0, true, CycleMethod.NO_CYCLE, stops);
         box.setFill(lg);
         return box;
